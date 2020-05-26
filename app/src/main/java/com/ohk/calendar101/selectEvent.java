@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,8 +42,6 @@ public class selectEvent extends AppCompatActivity {
 
         SharedPreferences sharedPref =getSharedPreferences("settings",MODE_PRIVATE);
         if(sharedPref.getBoolean("darkMode",false)){
-            System.out.println("Dark mod seçili");
-
             txt.setTextColor(Color.parseColor("#FFFFFF"));
             layout.setBackgroundColor(Color.parseColor("#192841"));
         }
@@ -78,6 +77,7 @@ public class selectEvent extends AppCompatActivity {
             public void onClick(View v) {
                 Intent showEvent = new Intent(selectEvent.this,showEvent.class);
                 showEvent.putExtra("idS",e.get(selecter.getSelectedItemPosition()).id);
+                Log.e("Select Event Id: ", String.valueOf(e.get(selecter.getSelectedItemPosition()).id));
                 startActivity(showEvent);
             }
         }

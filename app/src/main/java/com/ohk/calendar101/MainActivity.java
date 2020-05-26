@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(sharedPref.getBoolean("darkMode",false)){
-            System.out.println("Dark mod seçili");
             mainLayout.setBackgroundColor(Color.parseColor("#192841"));
             myCalendar.setCalendarBackgroundColor("#192841");
             myCalendar.setHeaderBackgroundColor("#ff8c00");
@@ -108,12 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             List<Event> eventsEv = database.EventDao().getAllEvents();
-            System.out.println(eventsEv.size());
             myCalendar.deleteAllEvent();
             for (Event event : eventsEv) {
                 Calendar calendarS = Calendar.getInstance();;
                 calendarS.setTimeInMillis(event.calendarStart);
-                System.out.println(event.toString());
 
                 int yearS = calendarS.get(Calendar.YEAR);
                 int monthS = calendarS.get(Calendar.MONTH) + 1; // Note: zero based!
@@ -123,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Calendar calendarF = Calendar.getInstance();;
                 calendarF.setTimeInMillis(event.calendarFinish);
-                System.out.println(event.toString());
 
                 int hourF = calendarF.get(Calendar.HOUR_OF_DAY);
                 int minuteF = calendarF.get(Calendar.MINUTE);
@@ -133,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         } catch (Exception error){
-            System.out.println(error);
+            Log.e("Main Error", String.valueOf(error));
         }
 
         myCalendar.getEventList(new GetEventListListener() {

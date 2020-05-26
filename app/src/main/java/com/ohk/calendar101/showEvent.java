@@ -81,7 +81,6 @@ public class showEvent extends AppCompatActivity {
 
 
         if(sharedPref.getBoolean("darkMode",false)){
-            System.out.println("Dark mod seçili");
 
             eventName.setTextColor(Color.parseColor("#FFFFFF"));
             description.setTextColor(Color.parseColor("#FFFFFF"));
@@ -105,8 +104,10 @@ public class showEvent extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         eventID = intent.getIntExtra("idS",0);
+        Log.e("showEvent", String.valueOf(eventID));
         final RepoDatabase database = RepoDatabase.getInstance(getApplicationContext());
         final Event e = database.EventDao().selectEvent(eventID);
+        Log.e("Event:",e.toString());
 
         try {
             alarm1TXT.setText(convertDateString(e.alarm1));
@@ -117,19 +118,19 @@ public class showEvent extends AppCompatActivity {
         }
         try {
             startDateTXT.setText(convertDateString(e.calendarStart));
+
+        } catch (Exception error){
             Intent menu = new Intent(showEvent.this,MainActivity.class);
             menu.putExtra("typeMonth",1);
             startActivity(menu);
-        } catch (Exception error){
-
         }
         try {
             finishDateTXT.setText(convertDateString(e.calendarFinish));
+
+        } catch (Exception error){
             Intent menu = new Intent(showEvent.this,MainActivity.class);
             menu.putExtra("typeMonth",1);
             startActivity(menu);
-        } catch (Exception error){
-
         }
 
         eventName.setText(e.title);
